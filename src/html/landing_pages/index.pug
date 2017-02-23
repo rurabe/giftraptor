@@ -1,0 +1,44 @@
+extends ../layouts/no_auth.pug
+
+block content
+  .row
+    .col-xs-12
+      .jumbotron
+        .row
+          .col-xs-12
+            h1 GiftRaptor
+            h3 Give better gifts
+        .row
+          .col-xs-12
+            h4 Sign in:
+        .row
+          .col-xs-12.sign-in-buttons
+            button.btn.btn-sm.btn-info
+              i.fa.fa-facebook
+              | Facebook
+            a(href="/login")
+              button.btn.btn-sm.btn-primary
+                i.fa.fa-envelope
+                | Email
+  .row
+    .col-md-4.col-sm-12.explanation
+      .explanation-icon
+        span.fa-stack.fa-lg
+          i.fa.fa-circle.fa-stack-2x
+          i.fa.fa-list.fa-stack-1x.fa-inverse
+      h3 Make a list
+      p Make a list of things you want, and add to it while shopping online
+    .col-md-4.col-sm-12.explanation
+      .explanation-icon
+        span.fa-stack.fa-lg
+          i.fa.fa-circle.fa-stack-2x
+          i.fa.fa-send.fa-stack-1x.fa-inverse
+      h3 Send it out
+      p Send your list to your friends and family so they know what you like
+    .col-md-4.col-sm-12.explanation
+      .explanation-icon
+        span.fa-stack.fa-lg
+          i.fa.fa-circle.fa-stack-2x
+          i.fa.fa-gift.fa-stack-1x.fa-inverse
+      h3 Know what to get
+      p Search for others' lists, and see who is getting them what.
