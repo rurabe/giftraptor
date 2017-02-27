@@ -9,6 +9,11 @@ html
       .container
         .navbar-header
           a.navbar-brand(href="/") GiftRaptor
+    .flash
+      .container
+        each messages, type in flash
+          each message in messages
+            div.alert(class=`alert-${type}`)= message
     .container
       block content
 

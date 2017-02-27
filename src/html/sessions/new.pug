@@ -2,5 +2,45 @@ extends ../layouts/no_auth.pug
 
 block content
   .row
-    .col-md-4
-      include ../shared/sessions_form
+    .col-md-6
+      .row
+        .col-md-12
+          h2 Sign in
+      .row
+        .col-md-10.well
+          form#login(action="/login" method="post")
+            .form-group
+              label(for="sessionEmail") Email
+              input#sessionUsername(name="email" type="text" placeholder="Email" class="form-control")
+            .form-group
+              label(for="sessionPassword") Password
+              input#sessionPassword(name="password" type="password" placeholder="Password" class="form-control")
+
+            input.btn.btn-primary(name="commit" type="submit" value="Sign in")
+
+    .col-md-6
+      .row
+        .col-md-12
+          h2 Sign up
+      .row
+        .col-md-10.well
+          form#login(action="/users" method="post")
+            .form-group
+              label(for="usersName") Name
+              input#usersName(name="name" type="text" placeholder="Name" class="form-control")
+            .form-group
+              label(for="usersEmail") Email
+              input#usersEmail(name="email" type="text" placeholder="Email" class="form-control")
+            .form-group
+              label(for="usersPassword") Password
+              input#usersPassword(name="password" type="password" placeholder="Password" class="form-control")
+
+            input.btn.btn-primary(name="commit" type="submit" value="Sign up")
+
+  hr
+  .row
+    .col-md-12.easier-sign-in
+      h4 It's faster and easier to 
+      button.btn.btn-sm.btn-info.sign-in-button
+        i.fa.fa-facebook
+        | Sign in with Facebook

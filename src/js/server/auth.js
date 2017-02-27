@@ -4,11 +4,12 @@ const LocalStrategy = require('passport-local');
 const UsersQueries = require('../queries/users_queries');
 
 const strategyOptions = {
-  passReqToCallback: true
+  passReqToCallback: true,
+  usernameField: 'email'
 };
 
 const loginOptions = { 
-  failureRedirect: '/', 
+  failureRedirect: '/login', 
   failureFlash: true,
 };
 
@@ -30,7 +31,7 @@ const Auth = {
     });
 
     Passport.deserializeUser(function(id, done) {
-      return UsersQueries.find({id: id}).then(user => {
+      return UsersQueries.findById(id).then(user => {
         done(null,user); return null;
       }).catch(e => {
         done(e,null); return null;

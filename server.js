@@ -25,11 +25,27 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 app.use(session({
-  store: new RedisStore({ url: process.env.REDIS_URL, prefix: 'idnasess:' }),
+  store: new RedisStore({ url: process.env.REDIS_URL, prefix: 'gr:' }),
   secret: process.env.SESSION_SECRET,
   saveUninitialized: false,
   resave: false,
 }));
+
+// flash
+const flash = require('connect-flash');
+app.use(flash());
+app.use(function(req,res,next){
+  res.locals.flash = {
+    error: req.flash('error'),
+    info: req.flash('info'),
+    success: req.flash('success'),
+  };
+  next();
+});
+
+// override methods from forms
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
 
 const Routes = require('./src/js/server/routes');
 Routes.init(app);

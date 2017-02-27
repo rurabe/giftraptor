@@ -1,7 +1,13 @@
 'use strict';
-
 const React = require('react');
 const { render } = require('react-dom');
-const { createStore,compose } = require('redux');
-const { Router,Route,IndexRoute,IndexRedirect,browserHistory } = require('react-router');
-const Immutable = require('immutable');
+
+const AppRouter = require('../components/app_router');
+
+const App = function(){
+  const dehydratedState = document.getElementById('main').attributes['data-initial-state'].value;
+  const initialState = JSON.parse(dehydratedState);
+  return <AppRouter initialState={initialState} />;
+}
+
+render(<App />,document.getElementById('main'));

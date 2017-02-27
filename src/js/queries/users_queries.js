@@ -1,10 +1,11 @@
 'use strict';
 const Promise = require('bluebird');
 const bcrypt = require('bcrypt');
-const Squel = require('squel').useFlavour('postgres');
 const DB = require('../server/db');
 const slug = require('slugg');
 const returnOne = DB.first;
+
+const UsersErrors = require('../errors/users_errors');
 
 const UsersQueries = {
   create: function(params){
@@ -14,16 +15,24 @@ const UsersQueries = {
   },
   findBySlug: function(slug){
     return DB.query({
-      text: 'select * from users where slug = $1;',
+      text: 'select id,email,name,picture,slug from users where slug = $1;',
       values: [slug]
     }).then(returnOne);
   },
+  findById: function(id){
+    return DB.query({
+      text: 'select id,email,name,picture,slug from users where id = $1;',
+      values: [id]
+    }).then(returnOne);
+  },
   authenticate: function(email,password,current_sign_in_ip){
-    return this.find({email: email}).then(user => {
+
+    return DB.query({text: 'select * from users where email = $1',values: [email]}).then(returnOne).then(user => {
       if(!user){
         return Promise.reject(new UsersErrors.NotFound());
       } else {
         return bcrypt.compare(password,user.encrypted_password).then(isAuthorized => {
+          console.log(isAuthorized)
           if(!isAuthorized){
             return Promise.reject(new UsersErrors.NotFound());
           } else {
@@ -40,7 +49,6 @@ const UsersQueries = {
 };
 
 const _insertNewUser = function(email,encrypted_password,name){
-  console.log([email,encrypted_password,name,slug(name)])
   return DB.query({
     text: `
       insert into users(email,encrypted_password,name,slug) 

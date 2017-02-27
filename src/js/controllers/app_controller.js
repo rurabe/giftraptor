@@ -2,11 +2,11 @@
 
 const AppController = {
   index: function(req,res){
-    // if(req.isAuthenticated()){
-
-    // } else {
-      res.render('landing_pages/index')
-    // }
+    if(req.isAuthenticated()){
+      res.render('app/index',{initialState: {user: req.user}});
+    } else {
+      res.render('landing_pages/index');
+    }
   }
 };
 

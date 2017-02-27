@@ -1,0 +1,141 @@
+.gift-card
+  @extend .col-xs-12 
+  @extend .col-sm-6
+  @extend .col-md-4 
+  @extend .col-lg-4 
+  height: 250px
+  margin-bottom: 30px
+  perspective: 1000px
+
+  &.edit .gift-card-inner
+    transform: rotateY(180deg)
+
+.gift-card-inner
+
+  text-align: center
+  cursor: pointer
+  transition: 0.6s
+  transform-style: preserve-3d
+  position: relative
+
+.gift-card-front,.gift-card-back
+  width: 100%
+  backface-visibility: hidden
+  -webkit-backface-visibility: hidden
+  background-color: #f9f9f9
+  position: absolute
+  top: 0
+  left: 0
+
+.gift-card-front
+  z-index: 2
+  position: relative
+  transform: rotateY(0deg)
+  background-color: #f9f9f9
+  height: 250px
+
+.gift-card-front-show:after
+  content: ''
+  position: absolute
+  left: 0px 
+  top: 0px
+  width: 100%
+  height: 100%
+  display: inline-block
+  background: -moz-linear-gradient(top, rgba(0,0,0,0) 50%, rgba(0,0,0,0.65) 100%) /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.65)), color-stop(100%,rgba(0,0,0,0))) /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0) 50%,rgba(0,0,0,0.65) 100%) /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(0,0,0,0) 50%,rgba(0,0,0,0.65) 100%) /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(0,0,0,0) 50%,rgba(0,0,0,0.65) 100%) /* IE10+ */
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 50%,rgba(0,0,0,0.65) 100%) /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ) /* IE6-9 */
+
+.gift-card-image
+  height: 100%
+  width: 100%
+  object-fit: cover
+
+.name
+  position: absolute
+  bottom: 0px
+  left: 10px
+  color: $gray-lighter
+  width: calc(100% - 20px)
+  text-align: left
+  z-index: 5
+
+.gift-card-back
+  padding: 10px
+  transform: rotateY(180deg)
+  height: 250px
+
+.new-gift-card
+  h3,h4
+    margin-top: 0px
+    color: $gray
+    opacity: 0.75
+    -webkit-transition: opacity 250ms ease-out;
+    -moz-transition: opacity 250ms ease-out;
+    -o-transition: opacity 250ms ease-out;
+    transition: opacity 250ms ease-out;
+
+  &:hover
+    h3,h4
+      opacity: 1
+
+  .fa
+    margin-top: 75px
+    font-size: 60px
+
+.gift-form
+  .form-group
+    margin-bottom: 10px
+
+  input.form-control,textarea.form-control
+    width: 100%
+    font-size: 12px
+
+  input.form-control
+    height: 30px
+
+  textarea.form-control
+    height: 70px
+
+.gift-card button
+  float: right
+  margin-left: 5px
+
+.gift-card-front-overlay
+  opacity: 0
+  position: absolute
+  background-color: rgba(0,0,0,0.65)
+  height: 100%
+  width: 100%
+  top: 0px
+  left: 0px
+
+  -webkit-transition: opacity 250ms ease-out;
+  -moz-transition: opacity 250ms ease-out;
+  -o-transition: opacity 250ms ease-out;
+  transition: opacity 250ms ease-out;
+
+  .actions
+    z-index: 10
+    padding: 10px
+    text-align: right
+    position: absolute
+    bottom: 0px
+    top: 0px
+    width: 100%
+
+
+.gift-card:hover 
+  .gift-card-front-overlay
+    opacity: 1
+
+  .name
+    color: #fff
+    z-index: 5
+
+
+
