@@ -47,6 +47,9 @@ class GiftsCard extends React.PureComponent {
                 <div className="actions">
                   <button className="btn btn-primary btn-sm" onClick={this.toggleEdit}><i className="fa fa-pencil"/> Edit</button>
                 </div>
+                <div className="description">
+                  <p>{this.props.gift.get('description')}</p>
+                </div>
               </div>
               <img className="gift-card-image" src={this.props.gift.get('image')} />
             </div>

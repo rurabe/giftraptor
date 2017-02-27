@@ -1,6 +1,7 @@
 'use strict';
 const React = require('react');
 const { connect } = require('react-redux');
+const { reset } = require('redux-form');
 const cn = require('classnames');
 
 const GiftsActions = require('../actions/gifts_actions');
@@ -19,7 +20,8 @@ const mapStateToProps = function(state){
 
 const mapDispatchToProps = function(dispatch){
   return {
-    mergeGifts: dispatchMerge(dispatch,'gifts')
+    mergeGifts: dispatchMerge(dispatch,'gifts'),
+    resetForm: () => { dispatch(reset('gifts[new]')) }
   };
 };
 
@@ -42,6 +44,7 @@ class GiftsNewCard extends React.PureComponent {
           <div className="gift-card-back">
             <GiftsForm onCancel={this.toggleEdit} onSubmit={this.onSubmit} form="gifts[new]"/>
             <button className="btn btn-sm btn-success" onClick={this.onSubmit}>Add</button>
+            <button className="btn btn-sm btn-primary" onClick={this.toggleEdit}>Cancel</button>
           </div>
         </div>
       </div>
@@ -50,6 +53,7 @@ class GiftsNewCard extends React.PureComponent {
 
   toggleEdit = (e) => {
     this.setState({edit: !this.state.edit});
+    this.props.resetForm();
   }
 
   onSubmit = (e) => {
