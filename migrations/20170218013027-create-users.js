@@ -17,8 +17,8 @@ exports.setup = function(options, seedLink) {
 exports.up = function(db,callback) {
   db.createTable('users',{
     id:                     {type: 'int', primaryKey: true, autoIncrement: true, notNull: true},
-    email:                  {type: 'text', notNull: true},
-    encrypted_password:     {type: 'text', notNull: true},
+    email:                  {type: 'text'},
+    encrypted_password:     {type: 'text'},
     reset_password_token:   {type: 'text'},
     reset_password_sent_at: {type: 'timestamp'},
     remember_created_at:    {type: 'timestamp'},
@@ -40,10 +40,10 @@ exports.up = function(db,callback) {
       before insert or update on users 
       for each row execute procedure timestamp_on_change();
     `,() => {
-      db.addIndex('users','index_users_on_email',['email'],true,() => {
+      db.runSql('create unique index index_users_on_email on users(email) where encrypted_password is not null;',() => {
         db.addIndex('users','index_users_on_reset_password_token',['reset_password_token'],true,() => {
           db.addIndex('users','index_users_on_slug',['slug'],true,() => {
-            db.runSql('create index index_users_on_provider_information on users(provider,uid) where ((provider is not null) and (uid is not null));',callback);
+            db.addIndex('users','index_users_on_provider_information',['provider','uid'],true,callback);
           });
         });
       });

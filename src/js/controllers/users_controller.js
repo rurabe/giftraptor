@@ -12,12 +12,16 @@ const whitelist = {
 const UsersController = {
   create: function(req,res){
     const params = strongParams(req.body,whitelist);
-
     UsersQueries.create(params).then(user => {
       req.login(user,err => {
         res.redirect('/')
       });
     });
+  },
+  show: function(req,res){
+    UsersQueries.withGifts(req.user,[req.params.slug]).then(data => {
+      res.json(data[0]);
+    })
   }
 };
 

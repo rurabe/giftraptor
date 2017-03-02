@@ -7,6 +7,8 @@ const GiftsActions = require('../actions/gifts_actions');
 const PictureActions = require('../actions/picture_actions');
 
 const GiftsForm = require('./gifts_form');
+const GiftsCardOverlay = require('./gifts_card_overlay');
+const GiftsCardClaimButton = require('./gifts_card_claim_button');
 
 const { dispatchMerge } = require('../helpers/dispatch_helpers');
 const { formatLink } = require('../helpers/link_helpers');
@@ -17,6 +19,7 @@ const mapStateToProps = function(state,ownProps){
   const forms = state.form.gifts;
   return {
     formData: ((forms && forms[giftId]) ? forms[giftId].values : {}),
+    my_slug: state.user.slug,
   };
 };
 
@@ -37,40 +40,44 @@ class GiftsCard extends React.PureComponent {
     const classes = cn('gift-card',{edit: this.state.edit});
     const link = formatLink(this.props.gift.get('link')) ||
       `https://www.google.com/#q=${this.props.gift.get('name').replace(/\s/g,'+')}`;
+
+
+    let back;
+    let claimButton;
+    if(this.props.edit){
+      back =  (
+        <div className="gift-card-back">
+          <GiftsForm 
+            onCancel={this.toggleEdit} 
+            onSubmit={this.onSubmit} 
+            gift={this.props.gift} 
+            form={`gifts[${this.props.gift.get('id')}]`}
+          />
+          <button className="btn btn-sm btn-success" onClick={this.onSubmit}>Update</button>
+        </div>
+      );
+    } else {
+      claimButton = <GiftsCardClaimButton gift={this.props.gift} my_slug={this.props.my_slug}/>;
+    }
+
     return (
       <div className={classes} >
         <div className="gift-card-inner">
           <a href={link} target="_blank">
             <div className="gift-card-front gift-card-front-show"> 
               <h4 className="name">{this.props.gift.get('name')}</h4>
-              <div className="gift-card-front-overlay">
-                <div className="actions">
-                  <button className="btn btn-primary btn-sm" onClick={this.toggleEdit}><i className="fa fa-pencil"/> Edit</button>
-                </div>
-                <div className="description">
-                  <p>{this.props.gift.get('description')}</p>
-                </div>
-              </div>
+              {claimButton}
+              <GiftsCardOverlay gift={this.props.gift} edit={this.props.edit} toggleEdit={this.toggleEdit}/>
               <img className="gift-card-image" src={this.props.gift.get('image')} />
             </div>
           </a>
-          <div className="gift-card-back">
-            <GiftsForm 
-              onCancel={this.toggleEdit} 
-              onSubmit={this.onSubmit} 
-              gift={this.props.gift} 
-              form={`gifts[${this.props.gift.get('id')}]`}
-            />
-            <button className="btn btn-sm btn-success" onClick={this.onSubmit}>Update</button>
-          </div>
+          {back}
         </div>
       </div>
     );
   }
 
   toggleEdit = (e) => {
-    e.preventDefault()
-    e.stopPropagation();
     this.setState({edit: !this.state.edit});
   }
 

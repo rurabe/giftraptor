@@ -1,9 +1,22 @@
+@media (min-width: $screen-xs-min) and (max-width: $screen-md-min)
+  .gift-card,.gift-card-front,.gift-card-back
+    height: 400px
+  .name
+    font-size: 2.5em
+  .claim-button
+    font-size: 1.5em
+
+
+
+@media (min-width: $screen-md-min)
+  .gift-card,.gift-card-front,.gift-card-back
+    height: 250px
+
 .gift-card
   @extend .col-xs-12 
-  @extend .col-sm-6
+  @extend .col-sm-12
   @extend .col-md-4 
   @extend .col-lg-4 
-  height: 250px
   margin-bottom: 30px
   perspective: 1000px
 
@@ -32,7 +45,6 @@
   position: relative
   transform: rotateY(0deg)
   background-color: #f9f9f9
-  height: 250px
 
 .gift-card-front-show:after
   content: ''
@@ -64,10 +76,29 @@
   text-align: left
   z-index: 5
 
+.claim-button
+  @extend .btn
+  @extend .btn-sm
+  position: absolute
+  top: 10px
+  left: 10px
+  z-index: 100
+
+  &[disabled],&.disabled
+    opacity: 1
+
+  &.unclaimed
+    @extend .btn-success
+
+  &.claimed-by-me
+    @extend .btn-primary
+
+  &.claimed
+    @extend .btn-default
+
 .gift-card-back
   padding: 10px
   transform: rotateY(180deg)
-  height: 250px
 
 .new-gift-card
   h3,h4
@@ -119,7 +150,7 @@
   -o-transition: opacity 250ms ease-out;
   transition: opacity 250ms ease-out;
 
-  .actions
+  .overlay-actions
     height: 51px
     z-index: 10
     padding: 10px

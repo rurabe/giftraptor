@@ -16,16 +16,16 @@ const GiftsActions = {
       superagent.post('/api/gifts').send(params).end((err,res) => {
         if(err){ reject(err); }
         resolve(keyBy(res.body.gifts,g => g.id));
-      })
-    })
+      });
+    });
   },
   update: function(giftId,params){
     return new Promise((resolve,reject) => {
       superagent.put(`/api/gifts/${giftId}`).send(params).end((err,res) => {
         if(err){ reject(err); }
         resolve(keyBy(res.body.gifts,g => g.id));
-      })
-    })
+      });
+    });
   }
 };
 

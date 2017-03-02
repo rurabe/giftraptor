@@ -22,9 +22,9 @@ SET search_path = public, pg_catalog;
 
 COPY migrations (id, name, run_on) FROM stdin;
 1	/20170218012706-create-timestamp-functions	2017-02-17 17:15:05.091
-5	/20170218013027-create-users	2017-02-21 14:33:04.237
-6	/20170218013032-create-gifts	2017-02-21 14:33:04.282
-7	/20170218013038-create-subscriptions	2017-02-21 14:33:04.317
+21	/20170218013027-create-users	2017-02-27 22:38:48.609
+22	/20170218013032-create-gifts	2017-02-27 22:38:48.625
+23	/20170218013038-create-subscriptions	2017-02-27 22:38:48.652
 \.
 
 
@@ -32,7 +32,7 @@ COPY migrations (id, name, run_on) FROM stdin;
 -- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: giftraptor
 --
 
-SELECT pg_catalog.setval('migrations_id_seq', 7, true);
+SELECT pg_catalog.setval('migrations_id_seq', 23, true);
 
 
 --

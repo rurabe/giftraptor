@@ -8,6 +8,7 @@ const RootReducer = combineReducers({
   form: ReduxForm.reducer,
   user: UserReducer,
   gifts: StandardReducer('gifts'),
+  people: StandardReducer('people'),
 });
 
 module.exports = RootReducer;

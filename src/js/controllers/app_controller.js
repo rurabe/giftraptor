@@ -1,9 +1,12 @@
 'use strict';
+const UsersQueries = require('../queries/users_queries');
 
 const AppController = {
   index: function(req,res){
     if(req.isAuthenticated()){
-      res.render('app/index',{initialState: {user: req.user}});
+      UsersQueries.findById(req.user.id).then(user => {
+        res.render('app/index',{initialState: {user: user}});
+      });
     } else {
       res.render('landing_pages/index');
     }

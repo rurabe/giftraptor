@@ -153,8 +153,8 @@ ALTER SEQUENCE subscriptions_id_seq OWNED BY subscriptions.id;
 
 CREATE TABLE users (
     id integer NOT NULL,
-    email text NOT NULL,
-    encrypted_password text NOT NULL,
+    email text,
+    encrypted_password text,
     reset_password_token text,
     reset_password_sent_at timestamp without time zone,
     remember_created_at timestamp without time zone,
@@ -284,14 +284,14 @@ CREATE UNIQUE INDEX index_subscriptions_on_subscriber_id_and_provider_id ON subs
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
+CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email) WHERE (encrypted_password IS NOT NULL);
 
 
 --
 -- Name: index_users_on_provider_information; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_provider_information ON users USING btree (provider, uid) WHERE ((provider IS NOT NULL) AND (uid IS NOT NULL));
+CREATE UNIQUE INDEX index_users_on_provider_information ON users USING btree (provider, uid);
 
 
 --

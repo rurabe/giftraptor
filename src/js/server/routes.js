@@ -5,7 +5,9 @@ const Auth = require('./auth');
 const AppController = require('../controllers/app_controller');
 const SessionsController = require('../controllers/sessions_controller');
 const UsersController = require('../controllers/users_controller');
+const PeopleController = require('../controllers/people_controller');
 const GiftsController = require('../controllers/gifts_controller');
+const ClaimsController = require('../controllers/claims_controller');
 
 const reqAuth = (req,res,next) => { 
   if(req.isAuthenticated()){
@@ -26,9 +28,15 @@ const Routes = {
 
     app.get('/login',noAuth,SessionsController.new);
     app.post('/login',noAuth,Auth.loginHandler(),returnToPage);
+
+    app.get('/auth/facebook',noAuth,Auth.facebook());
+    app.get('/auth/facebook/callback',noAuth,Auth.facebookCallback(),returnToPage);
+
     app.delete('/logout',reqAuth,Auth.logoutHandler());
 
     app.post('/users',noAuth,UsersController.create);
+
+    app.get('/users/:slug',reqAuth,AppController.index);
 
 
     const api = express.Router();
@@ -36,6 +44,10 @@ const Routes = {
     api.get('/gifts',GiftsController.index);
     api.post('/gifts',GiftsController.create);
     api.put('/gifts/:id',GiftsController.update);
+    api.post('/gifts/:id/claims',ClaimsController.create);
+    api.delete('/gifts/:id/unclaims',ClaimsController.destroy);
+
+    api.get('/people/:slug',PeopleController.show);
 
     app.use('/api',api);
   }
