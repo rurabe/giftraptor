@@ -63,7 +63,7 @@ class GiftsCard extends React.PureComponent {
     return (
       <div className={classes} >
         <div className="gift-card-inner">
-          <a href={link} target="_blank">
+          <a href={link} target="_blank" className="gift-card-link">
             <div className="gift-card-front gift-card-front-show"> 
               <h4 className="name">{this.props.gift.get('name')}</h4>
               {claimButton}
@@ -82,8 +82,8 @@ class GiftsCard extends React.PureComponent {
   }
 
   onSubmit = (e) => {
-    GiftsActions.update(this.props.gift.get('id'),this.props.formData).then( gifts => {
-      this.props.mergeGifts(gifts);
+    GiftsActions.update(this.props.gift.get('id'),this.props.formData).then( data => {
+      this.props.mergeGifts(data);
       this.setState({edit: !this.state.edit});
     });
   }

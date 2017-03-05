@@ -17,11 +17,6 @@ const UsersController = {
         res.redirect('/')
       });
     });
-  },
-  show: function(req,res){
-    UsersQueries.withGifts(req.user,[req.params.slug]).then(data => {
-      res.json(data[0]);
-    })
   }
 };
 

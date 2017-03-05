@@ -8,6 +8,8 @@ const UsersController = require('../controllers/users_controller');
 const PeopleController = require('../controllers/people_controller');
 const GiftsController = require('../controllers/gifts_controller');
 const ClaimsController = require('../controllers/claims_controller');
+const FriendsController = require('../controllers/friends_controller');
+const SearchController = require('../controllers/search_controller');
 
 const reqAuth = (req,res,next) => { 
   if(req.isAuthenticated()){
@@ -48,6 +50,10 @@ const Routes = {
     api.delete('/gifts/:id/unclaims',ClaimsController.destroy);
 
     api.get('/people/:slug',PeopleController.show);
+
+    api.get('/search',SearchController.index);
+
+    api.get('/friends',FriendsController.index);
 
     app.use('/api',api);
   }

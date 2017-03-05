@@ -2,9 +2,9 @@
 
 const DispatchHelpers = {
   dispatchMerge: function(dispatch,resourceName){
-    return function(keyedResourceCollection){
+    return function(data){
       let action = {type: `${resourceName}.merge`};
-      action[resourceName] = keyedResourceCollection;
+      action[resourceName] = data[resourceName];
       dispatch(action);
     };
   }

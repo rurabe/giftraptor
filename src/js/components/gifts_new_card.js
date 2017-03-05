@@ -12,7 +12,7 @@ const { dispatchMerge } = require('../helpers/dispatch_helpers');
 
 const mapStateToProps = function(state){
   const forms = state.form.gifts;
-  const nf = forms ? forms.new.values : {};
+  const nf = forms && forms.new ? forms.new.values : {};
   return { 
     formData: nf,
   };
@@ -57,8 +57,8 @@ class GiftsNewCard extends React.PureComponent {
   }
 
   onSubmit = (e) => {
-    GiftsActions.create(this.props.formData).then( gifts => {
-      this.props.mergeGifts(gifts);
+    GiftsActions.create(this.props.formData).then( data => {
+      this.props.mergeGifts(data);
       this.toggleEdit(e);
     });
   }

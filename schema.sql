@@ -28,6 +28,20 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
+--
+-- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
+
+
 SET search_path = public, pg_catalog;
 
 --
@@ -264,6 +278,13 @@ CREATE INDEX index_gifts_on_gifter_id ON gifts USING btree (gifter_id);
 --
 
 CREATE INDEX index_gifts_on_user_id ON gifts USING btree (user_id);
+
+
+--
+-- Name: index_name_on_users_trigram; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_name_on_users_trigram ON users USING gin (name gin_trgm_ops);
 
 
 --

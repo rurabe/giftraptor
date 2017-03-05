@@ -1,9 +1,12 @@
 @import lib/variables
+$input-color-placeholder: lighten($gray-base, 75%)
+
 @import ../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap
 @import lib/bootswatch
 
 @import app/landing_pages
 @import app/gift_grid
+@import app/feed
 
 body
   height: 100vh
@@ -12,3 +15,4 @@ body
 
 .alert-error
   @extend .alert-danger
+

@@ -8,7 +8,7 @@ const RootReducer = require('../reducers/root_reducer');
 
 const AppLayout = require('./app_layout');
 const DashboardIndex = require('./dashboard_index');
-const UsersShow = require('./users_show');
+const PeopleShow = require('./people_show');
 
 const AppRouter = function(props){
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -18,7 +18,7 @@ const AppRouter = function(props){
       <Router history={browserHistory}>
         <Route path="/" component={AppLayout}>
           <IndexRoute component={DashboardIndex} />
-          <Route path="/users/:slug" component={UsersShow}/>
+          <Route path="/users/:slug" component={PeopleShow}/>
         </Route>
       </Router>
     </Provider>

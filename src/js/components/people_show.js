@@ -3,7 +3,7 @@ const React = require('react');
 const { connect } = require('react-redux');
 
 const GiftsActions = require('../actions/gifts_actions');
-const UsersActions = require('../actions/users_actions');
+const PeopleActions = require('../actions/people_actions');
 
 const GiftsGrid = require('./gifts_grid');
 const Loading = require('./loading');
@@ -24,13 +24,15 @@ const mapDispatchToProps = function(dispatch){
   };
 };
 
-class UsersShow extends React.PureComponent {
+class PeopleShow extends React.PureComponent {
 
-  componentWillMount(){
-    GiftsActions.index().then(this.props.mergeGifts);
-    UsersActions.show(this.props.params.slug).then(data => {
-      this.props.mergeGifts(data.gifts);
-      this.props.mergePeople(data.people);
+  componentDidMount = () => this.getData();
+  componentDidUpdate = () => this.getData();
+
+  getData = () => {
+    PeopleActions.show(this.props.params.slug).then(data => {
+      this.props.mergeGifts(data);
+      this.props.mergePeople(data);
     });
   }
 
@@ -39,10 +41,10 @@ class UsersShow extends React.PureComponent {
       return (
         <div id="usersShow">
           <div className="page-header">
-            <h1>{this.props.person.get('name')}'s Wishlist</h1>
+            <h1>{this.props.person.get('name')}'s wishlist</h1>
           </div>
           <div className="row">
-            <div className="col-md-9">
+            <div className="col-md-12">
               <GiftsGrid gifts={this.props.gifts} edit={false}/>
             </div>
           </div>
@@ -55,4 +57,4 @@ class UsersShow extends React.PureComponent {
   }
 }
 
-module.exports = connect(mapStateToProps,mapDispatchToProps)(UsersShow);
+module.exports = connect(mapStateToProps,mapDispatchToProps)(PeopleShow);

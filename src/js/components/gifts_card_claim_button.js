@@ -19,7 +19,6 @@ const mapDispatchToProps = function(dispatch){
 class GiftsCardClaimButton extends React.PureComponent {
   render(){
     const gifterSlug = this.props.gift.get('gifter_slug');
-    console.log(gifterSlug,this.props.my_slug)
     if(!gifterSlug){
       return (
         <button className="claim-button unclaimed" onClick={this.claim}>I'll get that!</button>
@@ -40,19 +39,13 @@ class GiftsCardClaimButton extends React.PureComponent {
   claim = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    ClaimsActions.create(this.props.gift.get('id')).then( gifts => {
-      console.log(gifts)
-      this.props.mergeGifts(gifts);
-    });
+    ClaimsActions.create(this.props.gift.get('id')).then(this.props.mergeGifts);
   }
 
   unclaim = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    ClaimsActions.destroy(this.props.gift.get('id')).then( gifts => {
-      console.log(gifts)
-      this.props.mergeGifts(gifts);
-    });
+    ClaimsActions.destroy(this.props.gift.get('id')).then(this.props.mergeGifts);
   }
 }
 
