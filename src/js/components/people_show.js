@@ -7,6 +7,7 @@ const PeopleActions = require('../actions/people_actions');
 
 const GiftsGrid = require('./gifts_grid');
 const Loading = require('./loading');
+const FriendButton = require('./friend_button');
 
 const { dispatchMerge } = require('../helpers/dispatch_helpers');
 
@@ -41,7 +42,10 @@ class PeopleShow extends React.PureComponent {
       return (
         <div id="usersShow">
           <div className="page-header">
-            <h1>{this.props.person.get('name')}'s wishlist</h1>
+            <h1>
+              {this.props.person.get('name')}'s wishlist
+              <FriendButton person={this.props.person} />
+            </h1>
           </div>
           <div className="row">
             <div className="col-md-12">

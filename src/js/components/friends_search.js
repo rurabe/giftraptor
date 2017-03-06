@@ -15,10 +15,12 @@ class FriendsSearch extends React.PureComponent {
     return (
       <AsyncTypeahead 
         onSearch={this.onSearch} 
-        onChange={this.onChange} 
+        onChange={this.onChange}
+        onBlur={this.onBlur}
         options={this.state.searchResults} 
         labelKey={'name'}
         filterBy={(o) => true}
+        ref="typeahead"
       />
     );
   }
@@ -31,8 +33,10 @@ class FriendsSearch extends React.PureComponent {
 
   onChange = (selected) => {
     const r = selected[0];
-    if(r){ browserHistory.push(`/users/${r.slug}`); }
-
+    if(r){ 
+      browserHistory.push(`/users/${r.slug}`); 
+      // this.refs.typeahead.getInstance().clear();
+    }
   }
 }
 

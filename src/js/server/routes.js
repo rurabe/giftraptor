@@ -54,6 +54,8 @@ const Routes = {
     api.get('/search',SearchController.index);
 
     api.get('/friends',FriendsController.index);
+    api.post('/friends/:slug',FriendsController.create);
+    api.delete('/friends/:slug',FriendsController.destroy);
 
     app.use('/api',api);
   }
