@@ -5,6 +5,7 @@ const { Link } = require('react-router');
 const { Navbar,Nav,NavDropdown,MenuItem } = require('react-bootstrap');
 
 const FriendsSearch = require('./friends_search');
+const AvatarPhoto = require('./avatar_photo');
 
 const mapStateToProps = function(state,ownProps){
   return {
@@ -14,23 +15,34 @@ const mapStateToProps = function(state,ownProps){
 
 class AppNavbar extends React.PureComponent {
   render(){
+    let name = (
+      <span> 
+        <div className="friend-name">
+          <span>{this.props.user.name}</span>
+        </div>
+        <AvatarPhoto photo={this.props.user.picture} />
+      </span>
+    )
+
     return (
-      <Navbar inverse fixedTop>
+      <Navbar inverse fixedTop collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/" className="navbar-brand">GiftRaptor</Link>
           </Navbar.Brand>
+          <Navbar.Toggle />
         </Navbar.Header>
-        <Nav pullRight>
+        <Navbar.Collapse>
+          <Nav pullRight>
 
-          <NavDropdown title={this.props.user.name} id="user-dropdown">
-            <MenuItem onSelect={this.props.updateLocale}>English</MenuItem>
-            <MenuItem onSelect={this.logout}>Logout</MenuItem>
-          </NavDropdown>
-        </Nav>
-        <Navbar.Form pullRight>
-          <FriendsSearch />
-        </Navbar.Form>
+            <NavDropdown title={name} id="user-dropdown">
+              <MenuItem onSelect={this.logout}>Logout</MenuItem>
+            </NavDropdown>
+          </Nav>
+          <Navbar.Form pullRight>
+            <FriendsSearch />
+          </Navbar.Form>
+          </Navbar.Collapse>
       </Navbar>
     );
   }

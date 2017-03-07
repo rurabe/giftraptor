@@ -44,7 +44,8 @@ class DashboardIndex extends React.PureComponent {
           </div>
           <div className="col-md-3">
             <Feed />
-            <FriendsList />
+            <h3>Friends</h3>
+            <FriendsList friends={this.props.friends}/>
           </div>
         </div>
       </div>

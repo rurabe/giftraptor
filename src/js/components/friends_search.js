@@ -21,6 +21,7 @@ class FriendsSearch extends React.PureComponent {
         labelKey={'name'}
         filterBy={(o) => true}
         ref="typeahead"
+        placeholder="Search for friends"
       />
     );
   }

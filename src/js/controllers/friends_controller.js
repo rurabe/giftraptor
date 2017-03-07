@@ -6,7 +6,7 @@ const keyBy = require('lodash/keyBy');
 const FriendsController = {
   index: function(req,res){
     PeopleQueries.where(req.user,{},{'user_subscriptions.id': null}).then(friends => {
-      res.json(keyBy(friends,f => f.id));
+      res.json({people: keyBy(friends,f => f.slug)});
     });
   },
   create: function(req,res){
