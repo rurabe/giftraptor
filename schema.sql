@@ -76,7 +76,8 @@ CREATE TABLE gifts (
     user_id integer,
     gifter_id integer,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    deleted_at timestamp without time zone
 );
 
 

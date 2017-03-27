@@ -53,7 +53,8 @@ class GiftsCard extends React.PureComponent {
             gift={this.props.gift} 
             form={`gifts[${this.props.gift.get('id')}]`}
           />
-          <button className="btn btn-sm btn-success" onClick={this.onSubmit}>Update</button>
+          <button className="btn btn-sm btn-success update-button" onClick={this.onSubmit}>Update</button>
+          <button className="btn btn-sm btn-primary delete-button" onClick={this.onDestroy}><i className="fa fa-trash" /></button>
         </div>
       );
     } else {
@@ -86,6 +87,10 @@ class GiftsCard extends React.PureComponent {
       this.props.mergeGifts(data);
       this.setState({edit: !this.state.edit});
     });
+  }
+
+  onDestroy = (e) => {
+    GiftsActions.destroy(this.props.gift.get('id')).then(this.props.mergeGifts);
   }
 }
 

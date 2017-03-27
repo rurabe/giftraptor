@@ -6,6 +6,9 @@ const StandardReducer = function(key){
     switch(action.type){
     case `${key}.merge`:
       return state.mergeDeep(action[key]);
+    case `${key}.remove` : 
+      // loop through action.paths and remove those keys
+      return state;
     default:
       return state;
     }

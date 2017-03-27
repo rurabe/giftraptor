@@ -10,7 +10,6 @@ const PeopleQueries = {
     return DB.query(selectedUsers(user,params,not).toParam());
   },
   search: function(user,searchTerm){
-    console.log(search(user,searchTerm).toParam())
     return DB.query(search(user,searchTerm).toParam());
   },
   withGifts: function(user,params,not){
@@ -52,6 +51,7 @@ const withGifts = function(userQuery){
         from gifts 
         inner join selected_users on selected_users.id = gifts.user_id
         left join users on users.id = gifts.gifter_id 
+        where gifts.deleted_at is null
       )
       select 
         (select json_object_agg(selected_users.slug,selected_users) from selected_users) as people,

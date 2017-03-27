@@ -26,6 +26,7 @@ COPY migrations (id, name, run_on) FROM stdin;
 22	/20170218013032-create-gifts	2017-02-27 22:38:48.625
 23	/20170218013038-create-subscriptions	2017-02-27 22:38:48.652
 24	/20170304091232-add-trigram-index-to-users	2017-03-03 23:19:08.425
+25	/20170309073142-add-deleted-at-to-gifts	2017-03-08 21:37:01.171
 \.
 
 
@@ -33,7 +34,7 @@ COPY migrations (id, name, run_on) FROM stdin;
 -- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: giftraptor
 --
 
-SELECT pg_catalog.setval('migrations_id_seq', 24, true);
+SELECT pg_catalog.setval('migrations_id_seq', 25, true);
 
 
 --

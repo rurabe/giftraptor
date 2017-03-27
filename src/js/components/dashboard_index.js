@@ -13,7 +13,7 @@ const { dispatchMerge } = require('../helpers/dispatch_helpers');
 
 const mapStateToProps = function(state){
   return {
-    gifts: state.gifts.filter(g => g.get('user_id') === state.user.id),
+    gifts: state.gifts.filter(g => g.get('user_id') === state.user.id && !g.get('deleted_at')),
     friends: state.people.filter(p => p.get('is_friend')),
   };
 };
@@ -43,7 +43,6 @@ class DashboardIndex extends React.PureComponent {
             <GiftsGrid gifts={this.props.gifts} edit={true}/>
           </div>
           <div className="col-md-3">
-            <Feed />
             <h3>Friends</h3>
             <FriendsList friends={this.props.friends}/>
           </div>

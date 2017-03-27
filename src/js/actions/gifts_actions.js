@@ -10,6 +10,9 @@ const GiftsActions = {
   },
   update: function(giftId,params){
     return request(r => r.put(`/api/gifts/${giftId}`).send(params) );
+  },
+  destroy: function(giftId){
+    return request(r => r.delete(`/api/gifts/${giftId}`) );
   }
 };
 

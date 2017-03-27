@@ -46,6 +46,7 @@ const Routes = {
     api.get('/gifts',GiftsController.index);
     api.post('/gifts',GiftsController.create);
     api.put('/gifts/:id',GiftsController.update);
+    api.delete('/gifts/:id',GiftsController.destroy);
     api.post('/gifts/:id/claims',ClaimsController.create);
     api.delete('/gifts/:id/unclaims',ClaimsController.destroy);
 
