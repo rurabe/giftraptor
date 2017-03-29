@@ -35,7 +35,6 @@ const _query = function(preparedStatement){
   });
 };
 
-// transactions not working quite yet, needs more debugging
 
 const getTransaction = function() {
   return new Promise((resolve,reject) => {
@@ -74,7 +73,10 @@ const getTransaction = function() {
 // // transaction commited
 const _transaction = function(fn){
   return Promise.using(getTransaction(),client => {
-    return fn(preparedStatement => client.query(preparedStatement).then(r => r.rows));
+    return fn(preparedStatement => {
+      console.log(preparedStatement)
+      return client.query(preparedStatement).then(r => r.rows)
+    });
   });
 };
 
