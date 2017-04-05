@@ -9,7 +9,9 @@
     "watch:js": "watchify src/js/entries/app.js -v -t babelify -g envify -p livereactload -o public/app.js",
     "watch:css": "nodemon --exec node-sass src/css/app.sass public/app.css --config nodemon.sass.json",
     "migrate": "db-migrate up && yarn dump",
-    "dump": "pg_dump -d giftraptor_development --schema-only -O -f schema.sql && pg_dump -d giftraptor_development -a -t migrations -f schema_migrations.sql"
+    "dump": "pg_dump -d giftraptor_development --schema-only -O -f schema.sql && pg_dump -d giftraptor_development -a -t migrations -f schema_migrations.sql",
+    "prod:bundle": "NODE_ENV=production browserify src/js/bundles/app_bundle.js -t babelify -g envify -g uglifyify > public/app.js",
+    "prod:sass": "NODE_ENV=production node-sass src/css/app.sass public/app.css --output-style=compressed"
   },
   "author": "",
   "license": "ISC",
@@ -54,6 +56,7 @@
     "slugg": "^1.1.0",
     "squel": "^5.7.0",
     "superagent": "^3.4.4",
+    "uglifyify": "^3.0.4",
     "yarn": "^0.20.3"
   },
   "devDependencies": {
