@@ -12,7 +12,7 @@ const strategyOptions = {
 const facebookStrategyOptions = {
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: 'http://localhost:8000/auth/facebook/callback',
+  callbackURL: `${process.env.HOST}/auth/facebook/callback`,
   scope: ['email','user_friends'],
   profileFields: ['id','displayName','email','picture'],
   passReqToCallback: true
