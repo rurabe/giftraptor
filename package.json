@@ -10,7 +10,7 @@
     "watch:css": "nodemon --exec node-sass src/css/app.sass public/app.css --config nodemon.sass.json",
     "migrate": "db-migrate up && yarn dump",
     "dump": "pg_dump -d giftraptor_development --schema-only -O -f schema.sql && pg_dump -d giftraptor_development -a -t migrations -f schema_migrations.sql",
-    "prod:bundle": "NODE_ENV=production browserify src/js/bundles/app_bundle.js -t babelify -g envify -g uglifyify > public/app.js",
+    "prod:bundle": "NODE_ENV=production browserify src/js/entries/app.js -t babelify -g envify -g uglifyify > public/app.js",
     "prod:sass": "NODE_ENV=production node-sass src/css/app.sass public/app.css --output-style=compressed"
   },
   "author": "",
@@ -24,6 +24,7 @@
     "bluebird": "^3.4.7",
     "body-parser": "^1.16.1",
     "bootstrap-sass": "^3.3.7",
+    "browserify": "^14.3.0",
     "classnames": "^2.2.5",
     "connect-flash": "^0.1.1",
     "connect-redis": "^3.2.0",
