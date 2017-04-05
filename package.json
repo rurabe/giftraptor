@@ -11,7 +11,8 @@
     "migrate": "db-migrate up && yarn dump",
     "dump": "pg_dump -d giftraptor_development --schema-only -O -f schema.sql && pg_dump -d giftraptor_development -a -t migrations -f schema_migrations.sql",
     "prod:bundle": "NODE_ENV=production browserify src/js/entries/app.js -t babelify -g envify -g uglifyify > public/app.js",
-    "prod:sass": "NODE_ENV=production node-sass src/css/app.sass public/app.css --output-style=compressed"
+    "prod:sass": "NODE_ENV=production node-sass src/css/app.sass public/app.css --output-style=compressed",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
@@ -64,6 +65,7 @@
     "babel-plugin-react-transform": "^2.0.2",
     "eslint": "^3.15.0",
     "eslint-plugin-react": "^6.10.0",
+    "jest": "^19.0.2",
     "nodemon": "^1.11.0",
     "react-proxy": "^1.1.8",
     "watchify": "^3.9.0"

@@ -11,7 +11,7 @@ const GiftsCardOverlay = require('./gifts_card_overlay');
 const GiftsCardClaimButton = require('./gifts_card_claim_button');
 
 const { dispatchMerge } = require('../helpers/dispatch_helpers');
-const { formatLink } = require('../helpers/link_helpers');
+const { referify } = require('../helpers/link_helpers');
 
 
 const mapStateToProps = function(state,ownProps){
@@ -38,7 +38,7 @@ class GiftsCard extends React.PureComponent {
 
   render(){
     const classes = cn('gift-card',{edit: this.state.edit});
-    const link = formatLink(this.props.gift.get('link')) ||
+    const link = referify(this.props.gift.get('link')) ||
       `https://www.google.com/#q=${this.props.gift.get('name').replace(/\s/g,'+')}`;
 
 

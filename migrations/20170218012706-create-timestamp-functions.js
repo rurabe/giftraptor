@@ -26,7 +26,7 @@ exports.up = function(db,callback) {
   `,callback);
 };
 
-exports.down = function(db) {
+exports.down = function(db,callback) {
   db.runSql('drop function if exists timestamp_on_change();',callback);
 };
 
