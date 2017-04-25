@@ -10,6 +10,7 @@ const GiftsController = require('../controllers/gifts_controller');
 const ClaimsController = require('../controllers/claims_controller');
 const FriendsController = require('../controllers/friends_controller');
 const SearchController = require('../controllers/search_controller');
+const ShoppingController = require('../controllers/shopping_controller');
 
 const reqAuth = (req,res,next) => { 
   if(req.isAuthenticated()){
@@ -39,6 +40,7 @@ const Routes = {
     app.post('/users',noAuth,UsersController.create);
 
     app.get('/users/:slug',reqAuth,AppController.index);
+    app.get('/shopping',reqAuth,AppController.index);
 
 
     const api = express.Router();
@@ -53,6 +55,8 @@ const Routes = {
     api.get('/people/:slug',PeopleController.show);
 
     api.get('/search',SearchController.index);
+
+    api.get('/shopping',ShoppingController.index);
 
     api.get('/friends',FriendsController.index);
     api.post('/friends/:slug',FriendsController.create);

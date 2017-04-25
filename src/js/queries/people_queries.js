@@ -13,7 +13,9 @@ const PeopleQueries = {
     return DB.query(search(user,searchTerm).toParam());
   },
   withGifts: function(user,params,not){
-    return DB.query(withGifts(selectedUsers(user,params,not)));
+    const su = selectedUsers(user,params,not);
+    const sg = giftsFromUsers(user);
+    return DB.query(peopleAndGifts(su,sg).toParam());
   },
 };
 
@@ -36,29 +38,23 @@ const search = function(user,searchTerm){
     .order('similarity(name,?)',false,searchTerm);
 };
 
-const withGifts = function(userQuery){
-  return {
-    text: `
-      with selected_users as (
-        ${userQuery.toParam().text}
-      ),
-      selected_gifts as (
-        select 
-          gifts.id,gifts.name,gifts.description,gifts.link,gifts.image,
-          selected_users.slug as user_slug,
-          users.slug as gifter_slug,
-          users.name as gifter_name
-        from gifts 
-        inner join selected_users on selected_users.id = gifts.user_id
-        left join users on users.id = gifts.gifter_id 
-        where gifts.deleted_at is null
-      )
-      select 
-        (select json_object_agg(selected_users.slug,selected_users) from selected_users) as people,
-        (select json_object_agg(selected_gifts.id,selected_gifts) from selected_gifts) as gifts;
-    `,
-    values: userQuery.toParam().values,
-  };
-}
+
+const giftsFromUsers = function(user){
+  return Squel.select().from('gifts').left_join('users','gifters','gifters.id = gifts.gifter_id')
+    .field('gifts.id,gifts.name,gifts.description,gifts.link,gifts.image')
+    .field('selected_users.slug as user_slug')
+    .field('gifters.slug as gifter_slug')
+    .field('gifters.name as gifter_name')
+    .join('selected_users',null,'selected_users.id = gifts.user_id')
+    .where('gifts.deleted_at is null');
+};
+
+const peopleAndGifts = function(userQuery,giftsQuery){
+  return Squel.select()
+    .with('selected_users',userQuery)
+    .with('selected_gifts',giftsQuery)
+    .field('(select json_object_agg(selected_users.slug,selected_users) from selected_users)','people')
+    .field('(select json_object_agg(selected_gifts.id,selected_gifts) from selected_gifts)','gifts')
+};
 
 module.exports = PeopleQueries;

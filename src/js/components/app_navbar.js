@@ -33,6 +33,11 @@ class AppNavbar extends React.PureComponent {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
+          <ul className="navbar-nav nav">
+            <li>
+              <Link to="/shopping">Shopping List</Link>
+            </li>
+          </ul>
           <Nav pullRight>
 
             <NavDropdown title={name} id="user-dropdown">

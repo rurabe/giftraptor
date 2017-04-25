@@ -30,7 +30,20 @@ const GiftsQueries = {
       `,
       values: [user.id,id]
     })
-  }
+  },
+  shopping: function(user,params){
+    const q = Squel.select().from('gifts')
+      .field('gifts.id,gifts.name,gifts.description,gifts.link,gifts.image')
+      .field('gifters.slug as gifter_slug')
+      .field('gifters.name as gifter_name')
+      .field('users.slug as user_slug')
+      .field('users.name as user_name')
+      .left_join('users','gifters','gifters.id = gifts.gifter_id')
+      .join('users',null,'users.id = gifts.user_id')
+      .where('gifters.id = ? and deleted_at is null',user.id);
+    const fq = filter(q,params);
+    return DB.query(fq.toParam());
+  },
 };
 
 module.exports = GiftsQueries;
